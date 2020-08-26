@@ -1,0 +1,98 @@
+---
+  #
+  # Create Structure Elasticsearch
+  #
+
+  # Add the group "{{ elasticsearch_group }}"
+  - name: Add the group "{{ elasticsearch_group }}"
+    group:
+      name: "{{ elasticsearch_group }}"
+      state: present
+      system: yes
+
+
+  # Add the user "{{ elasticsearch_user }}"
+
+  - name: Add the user "{{ elasticsearch_user }}"
+    user:
+      name: "{{ elasticsearch_user }}"
+      shell: /bin/bash
+      groups: "{{ elasticsearch_group }}"
+      append: yes
+  
+      
+  # Create directory "{{ elasticsearch_dir }}"
+  
+  - name: Create directory "{{ elasticsearch_dir }}"
+    file:
+      path: "{{ elasticsearch_dir }}"
+      state: directory
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0755 
+
+
+  # Create directory "{{ elasticsearch_dir_data }}"
+  
+  - name: Create directory "{{ elasticsearch_dir_data }}"
+    file:
+      path: "{{ elasticsearch_dir_data }}"
+      state: directory
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0755 
+
+
+  # Create directory "{{ elasticsearch_dir_kibana }}"
+  
+  - name: Create directory "{{ elasticsearch_dir_kibana }}"
+    file:
+      path: "{{ elasticsearch_dir_kibana }}"
+      state: directory
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0755 
+
+
+  # Create directory "{{ elasticsearch_dir_logstash }}"
+  
+  - name: Create directory "{{ elasticsearch_dir_logstash }}"
+    file:
+      path: "{{ elasticsearch_dir_logstash }}"
+      state: directory
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0755 
+
+
+  # Create directory "{{ elasticsearch_dir_log_elasticsearch }}"
+  
+  - name: Create directory "{{ elasticsearch_dir_log_elasticsearch }}"
+    file:
+      path: "{{ elasticsearch_dir_log_elasticsearch }}"
+      state: directory
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0755 
+
+
+  # Create directory "{{ elasticsearch_dir_log_kibana }}"
+  
+  - name: Create directory "{{ elasticsearch_dir_log_kibana }}"
+    file:
+      path: "{{ elasticsearch_dir_log_kibana }}"
+      state: directory
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0755 
+
+
+  # Create directory "{{ elasticsearch_dir_log_logstash }}"
+  - name: Create directory "{{ elasticsearch_dir_log_logstash }}"
+    file:
+      path: "{{ elasticsearch_dir_log_logstash }}"
+      state: directory
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0755 
+  

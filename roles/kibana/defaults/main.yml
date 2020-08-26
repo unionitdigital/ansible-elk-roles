@@ -1,0 +1,4 @@
+elasticsearch_user: elasticsearch
+elasticsearch_group: elasticsearch
+
+elasticsearch_max_map_count: 262144

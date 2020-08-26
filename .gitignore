@@ -1,0 +1,4 @@
+# Exclude files
+
+!/roles/**/files/*.tar.gz
+!/roles/**/files/*rpm.gz

@@ -1,0 +1,88 @@
+---
+#
+# Template Elasticsearch Master
+#
+
+#
+# Cluster
+#
+
+# Cluster Name:
+cluster.name: {{ es_cluster_name }}
+
+
+# Cluster Initial Master Nodes:
+cluster.initial_master_nodes: {{ es_cluster_initial_master_nodes }}
+
+
+#
+# Discovery Hosts
+#
+
+# Discovery hosts:
+discovery.seed_hosts: {{ es_discovery_seed_hosts }}
+
+discovery.zen.minimum_master_nodes: {{ es_discovery_minimum_master_nodes }}
+
+#
+# Paths
+#
+
+# Path Data:
+path.data: {{ es_path_data }}
+
+# Path logs:
+path.logs: {{ es_path_logs }}
+
+
+#
+# Network
+#
+
+# Network Host
+network.host: {{ es_network_host }}
+
+# Network Port
+http.port: {{ es_http_port }}
+
+
+#
+# Xpack
+#
+
+# Xpack Security
+xpack.security.enabled: {{ es_xpack_security_enabled }}
+
+# Xpack Monitoring
+#xpack.monitoring.enabled: true
+
+# Xpack SSL
+#xpack.ssl.key: /etc/elasticsearch/config/certs/elastic-certificate.key
+#xpack.ssl.certificate: /etc/elasticsearch/config/certs/elastic-certificate.crt
+#xpack.ssl.certificate_authorities: /etc/elasticsearch/config/certs/ca/ca.crt
+
+# Xpack Security
+#xpack.security.transport.ssl.enabled: true
+#xpack.security.http.ssl.enabled: true
+
+
+#
+# Node
+#
+
+# Node Master
+node.master: {{ es_node_master }}
+
+# Node Data
+node.data: {{ es_node_data }}
+
+# Node Ingest
+node.ingest: {{ es_node_ingest }}
+
+
+#
+# Boostrap
+#
+
+# Boostrap Memory Lock
+bootstrap.memory_lock: {{ es_bootstrap_memory_lock }}

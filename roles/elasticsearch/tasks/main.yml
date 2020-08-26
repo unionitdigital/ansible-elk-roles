@@ -1,0 +1,43 @@
+---
+  #
+  # Installing Elasticsearch 
+  #
+  
+  # Copy .rpm file to server
+  
+  - name: Copy .rpm file to server
+    copy:
+      src: elasticsearch.rpm
+      dest: /tmp/elasticsearch.rpm
+  
+  
+   # Install Elasticsearch
+  
+  - name: Install Elasticsearch 
+    yum:
+      name: /tmp/elasticsearch.rpm
+      state: present
+
+  
+  # Replace default elasticsearch.yml
+  
+  - name: Replace default elasticsearch.yml
+    template:
+     src: elasticsearch.yml
+     dest: /etc/elasticsearch/elasticsearch.yml
+     force: yes
+
+
+  # Permissions
+  
+  - name: Permissions Elasticsearch User and Group
+    command: chown elasticsearch:elasticsearch /elasticsearch -R
+  
+
+  # Start Elasticsearch Service 
+  
+  - name: Start Elasticsearch Service
+    service:
+      name: elasticsearch
+      state: started
+      enabled: yes

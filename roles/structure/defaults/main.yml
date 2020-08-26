@@ -1,0 +1,39 @@
+---
+#
+# Elasticsearch vars
+#
+
+# Elasticsearch User
+elasticsearch_user: elasticsearch
+
+# Elasticsearch Group
+elasticsearch_group: elasticsearch
+
+
+
+#
+# Elasticsearch Directories
+#
+
+# D-ELS Dir ./
+elasticsearch_dir: /elasticsearch
+
+# D-ELS Data
+elasticsearch_dir_data: /elasticsearch/dados
+
+# D-ELS Kibana
+elasticsearch_dir_kibana: /elasticsearch/kibana
+
+# D-ELS Logstash
+elasticsearch_dir_logstash: /elasticsearch/logstash
+
+
+# D-ELS Log Elasticsearch
+elasticsearch_dir_log_elasticsearch: /elasticsearch/logs/elasticsearch
+
+# D-ELS Log Kibana
+elasticsearch_dir_log_kibana: /elasticsearch/logs/kibana
+
+# D-ELS Log Logstash
+elasticsearch_dir_log_logstash: /elasticsearch/logs/logstash
+

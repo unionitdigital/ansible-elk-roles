@@ -1,0 +1,61 @@
+---
+#
+# Template Logstash 
+#
+
+#
+# Http
+#
+
+# Http Host 
+http.host: {{ logstash_http_host }}
+
+# Http Port
+http.port: {{ logstash_http_port }}
+
+
+#
+# Node
+#
+
+# Node Name
+node.name: {{ logstash_node_name }}
+
+
+#
+# Pipeline
+#
+
+# Pipeline Workers
+pipeline.workers: {{ logstash_pipeline_workers }}
+
+# Pipeline Batch
+pipeline.batch.size: {{ logstash_pipeline_batch_size }}
+pipeline.batch.delay: {{ logstash_pipeline_batch_delay }}
+
+
+#
+# Path
+#
+
+# Path Config
+path.config: {{ logstash_path_config }}
+
+# Path Queue and Configs
+path.queue: {{ logstash_path_queue }}
+queue.type: {{ logstash_queue_type }}
+queue.max_bytes: {{ logstash_queue_type_max_bytes }}
+
+# Path Logs
+path.logs: {{ logstash_path_logs }}
+
+# Path Config
+path.config: {{ logstash_path_config }}
+
+
+#
+# Log
+#
+
+# Log Level
+log.level: {{ logstash_log_level }}

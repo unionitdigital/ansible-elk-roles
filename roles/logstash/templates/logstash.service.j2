@@ -1,0 +1,12 @@
+[Unit]
+Description = logstash
+After = network.target elasticsearch.service
+
+[Service]
+User=elasticsearch
+Group=elasticsearch
+
+ExecStart = /etc/logstash/bin/logstash
+
+[Install]
+WantedBy = multi-user.target

@@ -1,0 +1,55 @@
+- hosts: masters
+  roles:
+    - { role: java }
+    - { role: structure }
+    - { role: elasticsearch }
+  vars:
+    # Elasticsearch configs
+    es_cluster_name: "es-master"
+    es_cluster_initial_master_nodes: ["es01", "es02", "es03"]
+    es_discovery_seed_hosts: ["34.68.92.98", "35.184.195.84", "34.72.177.51"] 
+    es_discovery_minimum_master_nodes: 2
+    es_path_data: /elasticsearch/dados
+    es_path_logs: /elasticsearch/logs/elasticsearch
+    es_network_host: '0.0.0.0'
+    es_http_port: 9200 
+    es_xpack_security_enabled: false
+    es_node_master: true
+    es_node_data: true
+    es_node_ingest: true
+    es_bootstrap_memory_lock: false
+
+
+- hosts: coordinator
+  roles:
+    - { role: java }
+    - { role: structure }
+    - { role: kibana }
+    - { role: logstash }
+  vars:
+    # Kibana configs
+    kb_server_port: 5601
+    kb_server_host: "0.0.0.0"
+    kb_server_name: "kibana-coordinator"
+    kb_elasticsearch_hosts: ["http://34.68.92.98:9200", "http://35.184.195.84:9200", "http://34.72.177.51:9200"] 
+    kb_elasticsearch_username: "kibana" 
+    kb_elasticsearch_password: "kibana" 
+    kb_index: ".kibana"
+    kb_default_app_id: "home"
+    kb_loggin_dest: /elasticsearch/logs/kibana/kibana_stdout.log
+    kb_loggin_verbose: true
+
+    # Logstash configs
+    logstash_http_host: "0.0.0.0"
+    logstash_http_port: 9600-9700
+    logstash_node_name: kibana-coordinator
+    logstash_pipeline_workers:  8
+    logstash_pipeline_batch_size: 1024
+    logstash_pipeline_batch_delay: 5
+    logstash_path_config: "/elasticsearch/logstash/pipelines/"
+    logstash_path_queue: /elasticsearch/logstash/data/queue
+    logstash_queue_type: persisted
+    logstash_queue_type_max_bytes: 30g 
+    logstash_path_logs: /elasticsearch/logs/logstash
+    logstash_path_config: "/elasticsearch/logstash/pipelines/*.conf"
+    logstash_log_level: info

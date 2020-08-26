@@ -1,0 +1,12 @@
+[Unit]
+Description = kibana
+After = network.target elasticsearch.service
+
+[Service]
+User=elasticsearch
+Group=elasticsearch
+
+ExecStart = /etc/kibana/bin/kibana
+
+[Install]
+WantedBy = multi-user.target

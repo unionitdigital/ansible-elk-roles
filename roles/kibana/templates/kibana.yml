@@ -1,0 +1,53 @@
+---
+#
+# Template Kibana 
+#
+
+#
+# Server
+#
+
+# Server Port
+server.port: {{ kb_server_port }}
+
+# Server Host
+server.host: {{ kb_server_host }}
+
+# Server Name
+server.name: {{ kb_server_name }}
+
+
+#
+# Elasticsearch
+#
+
+# Elasticsearch HOSTS 7.x
+elasticsearch.hosts: {{ kb_elasticsearch_hosts }}
+
+# Elasticsearch Username
+elasticsearch.username: {{ kb_elasticsearch_username }}
+
+# Elasticsearch Password
+elasticsearch.password: {{ kb_elasticsearch_password }}
+
+
+#
+# Kibana
+#
+
+# Kibana Index
+kibana.index: {{ kb_index }}
+
+# Kibana Default App Id
+kibana.defaultAppId: {{ kb_default_app_id }}
+
+
+#
+# Kibana
+#
+
+# Loggin Dest
+logging.dest: {{ kb_loggin_dest }}
+
+# Loggin Verbose
+logging.verbose: {{ kb_loggin_verbose }}

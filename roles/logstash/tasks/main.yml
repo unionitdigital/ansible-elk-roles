@@ -1,0 +1,136 @@
+---
+  #
+  # Installing Logstash 
+  #
+  
+  # Copy tar.gz file to server
+  
+  - name: Copy tar.gz file to server
+    copy:
+      src: logstash.tar.gz
+      dest: /tmp/logstash.tar.gz
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0755
+  
+  
+   # Unarchive source Logstash 
+  
+  - name: Unarchive source Logstash 
+    unarchive:
+      src: /tmp/logstash.tar.gz
+      dest: /tmp/
+      copy: no
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0755
+  
+  
+  # Check the existence of the folder logstash in the directory /elasticsearch
+  
+  - name: Check the existence of the folder logstash in the directory /elasticsearch
+    stat: 
+      path: /elasticsearch/logstash
+    register: logstash_exist
+  
+  
+  # Move folder logstash to directory /elasticsearch
+  
+  - name: Move folder logstash to directory /elasticsearch
+    command: mv /tmp/logstash /elasticsearch
+    when: logstash_exist.stat.exists == false 
+  
+  
+  # Check the current Logstash symlink
+  
+  - name: Check the current Logstash symlink
+    stat: path=/etc/logstash
+    register: logstash_symlink 
+  
+  
+  # Remove the folder Logstash in /etc
+  
+  - name: Remove the folder Logstash in /etc
+    file: path=/etc/logstash state=absent
+    when: logstash_symlink.stat.isdir is defined and logstash_symlink.stat.isdir
+  
+  
+  # Create symbolic link
+  
+  - name: Create symbolic link
+    file: 
+      src: /elasticsearch/logstash
+      dest: /etc/logstash 
+      state: link
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0644
+      force: yes
+      follow: false
+    
+
+  # Replace default logstash.yml
+  
+  - name: Replace default logstash.yml
+    template:
+     src: logstash.yml
+     dest: /etc/logstash/config/logstash.yml
+     owner: "{{ elasticsearch_user }}"
+     group: "{{ elasticsearch_group }}"
+     mode: 0644
+     force: yes
+  
+  
+  # Create Logstash Service
+  
+  - name: Logstash | Create Logstash Service
+    template: 
+      src: logstash.service.j2 
+      dest: /lib/systemd/system/logstash.service
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: "u=rw,g=r,o=r"
+
+
+# Copy sysctl.confs Configuration File
+
+  - name: Copy sysctl.conf Configuration File
+    template:
+      src: templates/sysctl.conf.j2
+      dest: /etc/sysctl.conf
+      force: yes
+  
+
+ # Copy jvm.options Configuration File
+
+  - name: Copy jvm.options Configuration File
+    template:
+      src: templates/jvm.options.j2
+      dest: /etc/logstash/config/jvm.options
+      owner: "{{ elasticsearch_user }}"
+      group: "{{ elasticsearch_group }}"
+      mode: 0644
+      force: yes
+  
+
+  # Permissions
+  
+  - name: Permissions Logstash User and Group
+    command: chown elasticsearch:elasticsearch /elasticsearch -R
+  
+  
+  # Reload Daemon
+  
+  - name: Reload Daemon
+    systemd:
+      daemon_reload: yes
+  
+  
+  # Start Logstash Service 
+  
+  - name: Start Logstash Service
+    remote_user: logstash
+    service:
+      name: logstash
+      state: started
+      enabled: yes
